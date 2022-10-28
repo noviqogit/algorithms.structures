@@ -32,21 +32,23 @@ def func_two(string: str):
 
 
 class TestFunc(unittest.TestCase):
+    def setUp(self) -> None:
+        self.func = func_two
 
     def test_empty(self):
-        self.assertEqual(func_two(''), False)
+        self.assertEqual(self.func(''), False)
 
     def test_one(self):
-        self.assertEqual(func_two('A'), True)
+        self.assertEqual(self.func('A'), True)
 
     def test_second(self):
-        self.assertEqual(func_two('aA'), False)
+        self.assertEqual(self.func('aA'), False)
 
     def test_third(self):
-        self.assertEqual(func_two('abcd'), True)
+        self.assertEqual(self.func('abcd'), True)
 
     def test_fourth(self):
-        self.assertEqual(func_two('abcdD'), False)
+        self.assertEqual(self.func('abcdD'), False)
 
 
 if __name__ == "__main__":
