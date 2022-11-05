@@ -9,6 +9,14 @@ class SingleLinkedList:
         self.head = None
         self.size = 0
 
+    def view(self):
+        node = self.head
+        arr = []
+        while node:
+            arr.append(node.value)
+            node = node.next
+        return arr
+
     def get(self, index: int) -> int:
         if index > self.size - 1:
             return -1
