@@ -1,5 +1,5 @@
 class Node:
-    def __init__(self, val):
+    def __init__(self, val=0):
         self.next = None
         self.value = val
 
@@ -70,7 +70,7 @@ class SingleLinkedList:
 
 
 class DoubleNode:
-    def __init__(self, val):
+    def __init__(self, val=0):
         self.next = None
         self.prev = None
         self.value = val
