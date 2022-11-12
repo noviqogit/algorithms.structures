@@ -1,8 +1,8 @@
-# Loop Detection: Given a circular linked list, implement an algorithm that returns
+# Loop Detection: Given a circular LinkedList, implement an algorithm that returns
 # the node at the beginning of the loop.
 # DEFINITION
-# Circular linked list: A (corrupt) linked list in which a node's next pointer points to
-# an earlier node, so as to make a loop in the linked list.
+# Circular LinkedList: A (corrupt) LinkedList in which a node's next pointer points to
+# an earlier node, so as to make a loop in the LinkedList.
 # EXAMPLE
 # Input: A -> B -> C -> D -> E -> C [thesameCasearlier] Output: C
 import unittest

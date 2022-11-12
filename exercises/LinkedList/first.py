@@ -1,4 +1,4 @@
-# Remove Dups! Write code to remove duplicates from an unsorted linked list.
+# Remove Dups! Write code to remove duplicates from an unsorted LinkedList.
 # FOLLOW UP
 # How would you solve this problem if a temporary buffer is not allowed?
 from implementation import SingleLinkedList

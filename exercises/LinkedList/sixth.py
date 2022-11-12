@@ -1,4 +1,4 @@
-# Palindrome: Implement a function to check if a linked list is a palindrome.
+# Palindrome: Implement a function to check if a LinkedList is a palindrome.
 from implementation import SingleLinkedList
 from queue import LifoQueue
 import unittest
