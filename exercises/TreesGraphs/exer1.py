@@ -17,8 +17,8 @@ def has_route(graph, start, end):
                 return True
             if route in finished:
                 continue
-            finished.add(node)
             queue.put(route)
+        finished.add(node)
     return False
 
 
