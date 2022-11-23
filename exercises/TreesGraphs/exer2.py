@@ -12,7 +12,7 @@ class Node:
         self.right = None
 
 
-def create_tree(arr, view):
+def create_tree(arr, view, unbalanced=False):
     n = len(arr)
     if not n:
         return
@@ -23,7 +23,8 @@ def create_tree(arr, view):
     middle = n // 2
     node = Node(arr[middle])
     view.append(node.value)
-    node.left = create_tree(arr[:middle], view)
+    if not unbalanced:
+        node.left = create_tree(arr[:middle], view)
     node.right = create_tree(arr[middle + 1:], view)
     return node
 
