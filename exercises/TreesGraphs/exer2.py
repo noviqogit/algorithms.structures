@@ -3,41 +3,35 @@
 
 
 import unittest
+from implementation import Tree, Node
 
 
-class Node:
-    def __init__(self, val):
-        self.value = val
-        self.left = None
-        self.right = None
+class BalancedBinarySearchTree(Tree):
 
-
-def create_tree(arr, view, unbalanced=False):
-    n = len(arr)
-    if not n:
-        return
-    if n == 1:
-        node = Node(arr[0])
-        view.append(node.value)
+    def create(self, arr):
+        n = len(arr)
+        if not n:
+            return
+        if n == 1:
+            node = Node(arr[0])
+            return node
+        middle = n // 2
+        node = Node(arr[middle])
+        node.left = self.create(arr[:middle])
+        node.right = self.create(arr[middle + 1:])
         return node
-    middle = n // 2
-    node = Node(arr[middle])
-    view.append(node.value)
-    if not unbalanced:
-        node.left = create_tree(arr[:middle], view)
-    node.right = create_tree(arr[middle + 1:], view)
-    return node
 
 
 class TestFunc(unittest.TestCase):
     def setUp(self) -> None:
-        self.func = create_tree
-        self.view = []
+        self.tree = BalancedBinarySearchTree()
 
     def test_one(self):
-        self.func([1, 2, 3, 4, 5], self.view)
-        self.assertEqual(self.view, [3, 2, 1, 5, 4])
+        arr = [1, 2, 3, 4, 5]
+        self.tree.head = self.tree.create(arr)
+        self.assertEqual([1, 2, 3, 4, 5], self.tree.view())
 
     def test_two(self):
-        self.func([1, 2, 3, 4], self.view)
-        self.assertEqual(self.view, [3, 2, 1, 4])
+        arr = [2, 3, 4, 5]
+        self.tree.head = self.tree.create(arr)
+        self.assertEqual([2, 3, 4, 5], self.tree.view())
