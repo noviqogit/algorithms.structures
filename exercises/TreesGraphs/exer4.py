@@ -3,28 +3,39 @@
 # that the heights of the two subtrees of any node never differ by more than one.
 
 import unittest
-from exer2 import create_tree
+from exer2 import BalancedBinarySearchTree
+from implementation import Node
 
 
-def func(node, heigh):
+def func(node, heigh=0):
     if not node:
         return heigh
-    left = func(node.left, heigh)
-    right = func(node.right, heigh)
+    left = func(node.left, heigh + 1)
+    right = func(node.right, heigh + 1)
     if abs(left - right) > 1:
         return 0
     return max(left, right)
 
 
+def change_balance(node):
+    while node.right:
+        node = node.right
+    for _ in range(3):
+        node.right = Node(node.value + 1)
+        node = node.right
+
+
 class TestFunc(unittest.TestCase):
     def setUp(self) -> None:
-        self.view = []
+        self.tree = BalancedBinarySearchTree()
 
     def test_one(self):
-        tree = create_tree([1, 2, 3, 4, 5], self.view)
-        self.assertEqual(bool(func(tree, 1)), True)
+        arr = [1, 2, 3, 4, 5]
+        self.tree.head = self.tree.create(arr)
+        self.assertTrue(func(self.tree.head))
 
     def test_two(self):
-        tree = create_tree([1, 2, 3, 4, 5, 6, 7, 8, 9], self.view, unbalanced=True)
-        print(self.view)
-        self.assertEqual(bool(func(tree, 0)), False)
+        arr = [1, 2, 3, 4, 5]
+        self.tree.head = self.tree.create(arr)
+        change_balance(self.tree.head)
+        self.assertFalse(func(self.tree.head))
