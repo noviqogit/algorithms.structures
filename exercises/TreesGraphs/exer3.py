@@ -4,7 +4,7 @@
 
 import unittest
 from exercises.LinkedList.implementation import SingleLinkedList
-from exer2 import create_tree
+from exer2 import BalancedBinarySearchTree
 
 
 def func(node, _list: SingleLinkedList):
@@ -18,15 +18,16 @@ def func(node, _list: SingleLinkedList):
 class TestFunc(unittest.TestCase):
     def setUp(self) -> None:
         self.list = SingleLinkedList()
+        self.tree = BalancedBinarySearchTree()
 
     def test_one(self):
         arr = [1, 2, 3, 4, 5]
-        tree = create_tree(arr, view=[])
-        func(tree, self.list)
+        self.tree.head = self.tree.create(arr)
+        func(self.tree.head, self.list)
         self.assertEqual(self.list.view(), [1, 2, 3, 4, 5])
 
     def test_two(self):
-        arr = [1, 3, 4, 7, 8, 10, 12, 14]
-        tree = create_tree(arr, view=[])
-        func(tree, self.list)
-        self.assertEqual(self.list.view(), [1, 3, 4, 7, 8, 10, 12, 14])
+        arr = [2, 3, 4, 5]
+        self.tree.head = self.tree.create(arr)
+        func(self.tree.head, self.list)
+        self.assertEqual(self.list.view(), [2, 3, 4, 5])
