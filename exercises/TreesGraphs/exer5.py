@@ -10,18 +10,23 @@ def is_binary_search(node):
     return left <= node.value < right
 
 
-def func(node):
+def func(node, minimum=None, maximum=None):
     if not node:
         return True
+    if minimum and node.value < minimum:
+        return False
+    if maximum and node.value > maximum:
+        return False
     if is_binary_search(node):
-        return func(node.left) and func(node.right)
+        return func(node.left, minimum, node.value) and func(node.right, node.value, maximum)
     return False
 
 
 def set_not_binary(node):
-    while node.right:
-        node = node.right
-    node.left = Node(node.value + 1)
+    prev = node.value
+    while node.left:
+        node = node.left
+    node.right = Node(prev)
 
 
 class TestFunc(unittest.TestCase):
