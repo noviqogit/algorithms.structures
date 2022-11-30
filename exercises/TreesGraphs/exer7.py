@@ -13,8 +13,13 @@ import unittest
 
 class Solution:
     def func(self, projects, dependencies):
+        roots = projects.copy()
+        for project in projects:
+            for depend in dependencies:
+                if project == depend[1]:
+                    roots.discard(project)
         graph = self.create_graph(dependencies)
-        for node in graph.keys():
+        for node in roots:
             path = self.check_path(node, graph, projects)
             if path:
                 return path
