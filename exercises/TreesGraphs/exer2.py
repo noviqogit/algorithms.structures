@@ -3,10 +3,10 @@
 
 
 import unittest
-from implementation import Tree, Node
+from implementation import BinaryTree, Node
 
 
-class BalancedBinarySearchTree(Tree):
+class BalancedBinarySearchTree(BinaryTree):
 
     def create(self, arr):
         n = len(arr)

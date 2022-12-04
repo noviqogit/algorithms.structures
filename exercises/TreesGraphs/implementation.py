@@ -5,21 +5,14 @@ class Node:
         self.right = None
 
 
-class Tree:
+class BinaryTree:
     def __init__(self):
         self.head = None
 
     def view(self):
-        _arr = []
-        _node = self.head
+        return self.recr(self.head)
 
-        def recursion(arr, node):
-            if not node:
-                return
-            recursion(arr, node.left)
-            arr.append(node.value)
-            recursion(arr, node.right)
-            return node
-
-        recursion(_arr, _node)
-        return _arr
+    def recr(self, node):
+        if not node:
+            return []
+        return self.recr(node.left) + [node.value] + self.recr(node.right)
