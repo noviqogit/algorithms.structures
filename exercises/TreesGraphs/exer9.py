@@ -12,20 +12,30 @@ def find_sequences(root):
         return []
     result = [[root.value]]
     level = [node for node in (root.left, root.right) if node]
-    combinations = []
     while level:
-        next_level = []
-        for node in level:
-            combinations.append(node.value)
-            next_level += [node for node in (node.left, node.right) if node]
-        next_iter = []
-        while result:
-            value = result.pop()
-            for combination in permutations(combinations):
-                next_iter.append(value + list(combination))
-        result = next_iter
-        level = next_level
+        level, values = next_level(level)
+        combinations = []
+        for combination in permutations(values):
+            combinations.append(list(combination))
+        result = iter_result(result, combinations)
     return result
+
+
+def iter_result(result, combinations):
+    _result = []
+    for value in result:
+        for combination in combinations:
+            _result.append(value + combination)
+    return _result
+
+
+def next_level(level):
+    values = []
+    _level = []
+    for node in level:
+        values.append(node.value)
+        _level += [node for node in (node.left, node.right) if node]
+    return _level, values
 
 
 class TestFunc(unittest.TestCase):
