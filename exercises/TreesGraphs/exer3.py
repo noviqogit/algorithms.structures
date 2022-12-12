@@ -4,30 +4,32 @@
 
 import unittest
 from exercises.LinkedList.implementation import SingleLinkedList
-from exer2 import BalancedBinarySearchTree
+from implementation import BinaryTree
 
 
-def func(node, _list: SingleLinkedList):
-    if not node:
-        return
-    func(node.left, _list)
-    _list.addAtTail(node.value)
-    func(node.right, _list)
+def func(root):
+    s = [root]
+    lists = []
+    while s:
+        _next = []
+        _list = SingleLinkedList()
+        for node in s:
+            _list.addAtTail(node.value)
+            if node.left:
+                _next.append(node.left)
+            if node.right:
+                _next.append(node.right)
+        lists.append(_list)
+        s = _next
+    return lists
 
 
 class TestFunc(unittest.TestCase):
     def setUp(self) -> None:
-        self.list = SingleLinkedList()
-        self.tree = BalancedBinarySearchTree()
+        self.tree = BinaryTree()
 
     def test_one(self):
-        arr = [1, 2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
-        func(self.tree.head, self.list)
-        self.assertEqual(self.list.view(), [1, 2, 3, 4, 5])
-
-    def test_two(self):
-        arr = [2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
-        func(self.tree.head, self.list)
-        self.assertEqual(self.list.view(), [2, 3, 4, 5])
+        arr = [3, 2, 4, '#', '#', '#', 5, 7, '#', '#', 6, '#', '#']
+        head = self.tree.create_preorder(arr)
+        lists = func(head)
+        self.assertEqual([[3], [2, 5], [4, 7, 6]], [_list.view() for _list in lists])
