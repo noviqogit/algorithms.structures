@@ -8,7 +8,11 @@ from implementation import BinaryTree, Node
 
 class BalancedBinarySearchTree(BinaryTree):
 
-    def create(self, arr):
+    def create_from_arr(self, arr):
+        self.head = self.arecr(arr)
+        return self.head
+
+    def arecr(self, arr):
         n = len(arr)
         if not n:
             return
@@ -17,8 +21,8 @@ class BalancedBinarySearchTree(BinaryTree):
             return node
         middle = n // 2
         node = Node(arr[middle])
-        node.left = self.create(arr[:middle])
-        node.right = self.create(arr[middle + 1:])
+        node.left = self.arecr(arr[:middle])
+        node.right = self.arecr(arr[middle + 1:])
         return node
 
 
@@ -28,10 +32,10 @@ class TestFunc(unittest.TestCase):
 
     def test_one(self):
         arr = [1, 2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
+        self.tree.create_from_arr(arr)
         self.assertEqual([1, 2, 3, 4, 5], self.tree.view())
 
     def test_two(self):
         arr = [2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
+        self.tree.create_from_arr(arr)
         self.assertEqual([2, 3, 4, 5], self.tree.view())

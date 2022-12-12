@@ -1,7 +1,7 @@
 # Validate BST: Implement a function to check if a binary tree is a binary search tree.
 
 import unittest
-from exer2 import BalancedBinarySearchTree, Node
+from implementation import BinaryTree
 
 
 def is_binary_search(node):
@@ -22,24 +22,16 @@ def func(node, minimum=None, maximum=None):
     return False
 
 
-def set_not_binary(node):
-    prev = node.value
-    while node.left:
-        node = node.left
-    node.right = Node(prev)
-
-
 class TestFunc(unittest.TestCase):
     def setUp(self) -> None:
-        self.tree = BalancedBinarySearchTree()
+        self.tree = BinaryTree()
 
     def test_one(self):
-        arr = [1, 2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
-        self.assertTrue(func(self.tree.head))
+        arr = [3, 2, 1, '#', '#', '#', 5, 4, '#', '#', 6, '#', '#']
+        head = self.tree.create_preorder(arr)
+        self.assertTrue(func(head))
 
     def test_two(self):
-        arr = [1, 2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
-        set_not_binary(self.tree.head)
-        self.assertFalse(func(self.tree.head))
+        arr = [3, 2, 1, '#', '#', 4, '#', '#', 5, 4, '#', '#', 6, '#', '#']
+        head = self.tree.create_preorder(arr)
+        self.assertFalse(func(head))
