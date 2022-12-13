@@ -43,6 +43,7 @@ class TestFunc(unittest.TestCase):
         self.tree = BalancedBinarySearchTree()
 
     def test_one(self):
-        arr = [1, 2, 3]
-        self.tree.head = self.tree.create(arr)
-        self.assertEqual([[2, 1, 3], [2, 3, 1]], find_sequences(self.tree.head))
+        arr = [1, 2, 3, 4, 5]
+        self.tree.create_from_arr(arr)
+        predict = [[3, 2, 5, 1, 4], [3, 2, 5, 4, 1], [3, 5, 2, 1, 4], [3, 5, 2, 4, 1]]
+        self.assertEqual(predict, find_sequences(self.tree.head))
