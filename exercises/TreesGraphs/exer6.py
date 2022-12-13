@@ -5,23 +5,15 @@ import unittest
 from exer2 import BalancedBinarySearchTree
 
 
-def func(node, value):
-    parent = None
-    while node.value != value:
-        if node.value > value:
-            parent = node
-            node = node.left
-        elif node.value < value:
-            parent = node
-            node = node.right
-    if not node.right:
-        if parent is None:
-            return None
-        return parent.value if node.value < parent.value else None
-    node = node.right
-    while node.left:
-        node = node.left
-    return node.value
+def func(node, value, prev=None):
+    if not node:
+        return
+    if node.value == value:
+        return prev.value if prev else None
+    if node.value < value:
+        return func(node.right, value, node)
+    if node.value >= value:
+        return func(node.left, value, node)
 
 
 class TestFunc(unittest.TestCase):
@@ -30,18 +22,18 @@ class TestFunc(unittest.TestCase):
 
     def test_one(self):
         arr = [1, 2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
-        _next = func(self.tree.head, 2)
-        self.assertEqual(3, _next)
+        self.tree.create_from_arr(arr)
+        successor = func(self.tree.head, 2)
+        self.assertEqual(3, successor)
 
     def test_two(self):
         arr = [1, 2, 3, 4, 5]
-        self.tree.head = self.tree.create(arr)
-        _next = func(self.tree.head, 5)
-        self.assertEqual(None, _next)
+        self.tree.create_from_arr(arr)
+        successor = func(self.tree.head, 3)
+        self.assertEqual(None, successor)
 
     def test_three(self):
         arr = [1, 2, 3, 4, 5, 6, 7]
-        self.tree.head = self.tree.create(arr)
-        _next = func(self.tree.head, 5)
-        self.assertEqual(6, _next)
+        self.tree.create_from_arr(arr)
+        successor = func(self.tree.head, 5)
+        self.assertEqual(6, successor)
