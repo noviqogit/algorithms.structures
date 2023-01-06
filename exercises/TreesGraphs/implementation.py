@@ -18,7 +18,7 @@ class BinaryTree:
     def view_recr(self, node):
         if not node:
             return []
-        return [node.value] + self.view_recr(node.left) + self.view_recr(node.right)
+        return self.view_recr(node.left) + [node.value] + self.view_recr(node.right)
 
     def create_preorder(self, preorder: list):
         sequence = iter(preorder)
