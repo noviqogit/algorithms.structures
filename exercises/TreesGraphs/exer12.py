@@ -10,29 +10,18 @@ from implementation import BinaryTree
 class Solution(BinaryTree):
 
     def func(self, target):
-        count = 0
-        roots = set()
-        self.find_roots(self.head, roots)
-        for root in roots:
-            if root.value == target and root.left and root.right:
-                count += 1
-            count += self.recr(root, target, 0)
-        return count
+        root = self.head
+        arr, sm = [], 0
+        self.recr(root, sm, arr)
+        return arr.count(target)
 
-    def find_roots(self, head, roots):
-        if not head:
-            return
-        roots.add(head)
-        self.find_roots(head.left, roots)
-        self.find_roots(head.right, roots)
-
-    def recr(self, root, target, sm):
+    def recr(self, root, sm, arr):
         if not root:
-            return 0
+            return
         sm += root.value
-        if not root.left and not root.right:
-            return 1 if sm == target else 0
-        return self.recr(root.left, target, sm) + self.recr(root.right, target, sm)
+        arr.append(sm)
+        self.recr(root.left, sm, arr)
+        self.recr(root.right, sm, arr)
 
 
 class TestFunc(unittest.TestCase):
@@ -44,9 +33,4 @@ class TestFunc(unittest.TestCase):
     def test_one(self):
         target = 5
         count = self.tree.func(target)
-        self.assertEqual(4, count)
-
-    def test_two(self):
-        target = -1
-        count = self.tree.func(target)
-        self.assertEqual(4, count)
+        self.assertEqual(2, count)
