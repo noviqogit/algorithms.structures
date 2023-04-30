@@ -2,11 +2,11 @@ n, m, q = map(int, input().split())
 
 servers = {i: [1 for _ in range(m)] for i in range(1, n + 1)}
 
-resets = {i: 1 for i in range(1, n + 1)}
+resets = {i: 0 for i in range(1, n + 1)}
 
 active_servers = {i: m for i in range(1, n + 1)}
 
-metrics = {i: m for i in range(1, n + 1)}
+metrics = {i: 0 for i in range(1, n + 1)}
 
 
 def reset(center):
